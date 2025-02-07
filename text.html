@@ -1,0 +1,411 @@
+@extends('layouts.backend')
+@section('title', 'Category Page')
+
+@push('styles')
+    <style>
+        /* Smooth transition for modal */
+        #modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        /* Hide modal by default */
+        #modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Show modal */
+        #modal:not(.hidden) {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal content animation */
+        #modal > div {
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        #modal:not(.hidden) > div {
+            transform: scale(1);
+        }
+    </style>
+@endpush
+
+@section('content')
+<div class="bg-white p-8 rounded-md w-full">
+    <button type="button" id="medium-modal-button"
+        class="modal-button py-2.5 px-5 text-xs bg-indigo-600 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-700"
+        data-pd-overlay="#medium-modal" data-modal-target="medium-modal" data-modal-toggle="medium-modal"><i class="fa fa-plus mr-1"></i>Create
+    </button>
+
+    <div class="bg-white py-8 rounded-md w-full">
+        <div class="inline-block min-w-full rounded-lg overflow-hidden">
+            <table class="min-w-full table-auto leading-normal">
+                <thead>
+                    <tr>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">SN</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Image</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Slug</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="showData">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{-- paginate --}}
+    <div class="mt-4">
+        {{ $categories->links() }}
+    </div>
+
+<!-- Create Modal -->
+<div class="w-full relative">
+    <div id="medium-modal"
+        class="pd-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
+        <div
+            class="opacity-0  ease-out  modal-open:opacity-100 transition-all modal-open:duration-500 md:max-w-2xl md:w-full m-3 md:mx-auto">
+            <div class="flex flex-col bg-white rounded-2xl py-4 px-5">
+                <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                    <h4 class="text-sm text-gray-900 font-medium">Create Category</h4>
+                    <button class="block cursor-pointer  close-modal-button" data-pd-overlay="#medium-modal"
+                        data-modal-target="medium-modal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.75732 7.75739L16.2426 16.2427M16.2426 7.75739L7.75732 16.2427" stroke="black"
+                                stroke-width="1.6" stroke-linecap="round"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <form id="categoryForm" method="POST">
+                    @csrf
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-lg font-medium text-gray-700">Name</label>
+                            <input type="text" name="name" id="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-4 name" onkeyup="errorRemove(this)">
+                            <span class="text-red-600 text-sm name_error"></span>
+                        </div>
+
+                        <div>
+                            <label for="slug" class="block text-lg font-medium text-gray-700">Slug</label>
+                            <input type="text" name="slug" id="slug" onkeyup="errorRemove(this)" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-4 slug">
+                            <span class="text-red-600 text-sm slug_error"></span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-lg font-medium text-gray-700">Description</label>
+                            <textarea name="description" id="description" onkeyup="errorRemove(this)" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-4 description"></textarea>
+                            <span class="text-red-600 text-sm description_error"></span>
+                        </div>
+
+                        <div>
+                            <label for="status" class="block text-lg font-medium text-gray-700">Status</label>
+                            <select name="status" id="status" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500
+                                block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-4 status">
+                                <option value="">Select Status</option>
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+                            <span class="text-red-600 text-sm status_error"></span>
+                        </div>
+                    </div>
+
+                    {{-- image --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="image" class="block text-lg font-medium text-gray-700">Image</label>
+                            <input type="file" name="image" id="image" onchange="loadImage(event, 'createImagePreview')" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md py-2 px-4 image">
+                            <span class="text-red-600 text-sm image_error"></span>
+                        </div>
+
+                        <div class="text-center">
+                            <img id="createImagePreview" class="mt-2 image" src="https://placehold.co/100x100" alt="Preview" style="width: 120px; height: 120px;">
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-end pt-4 border-t border-gray-200 space-x-4">
+                        <button type="button"
+                            class="py-2.5 px-5 text-xs bg-indigo-50 text-indigo-500 rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-100 close-modal-button"
+                            data-pd-overlay="#medium-modal" data-modal-target="medium-modal">Cancel</button>
+                        <button type="submit"
+                            class="py-2.5 px-5 text-xs  bg-indigo-500 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-700 close-modal-button">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="w-full relative">
+    <div id="medium-modal"
+        class="pd-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
+        <div
+            class="opacity-0 ease-out modal-open:opacity-100 transition-all modal-open:duration-500 md:max-w-2xl md:w-full m-3 md:mx-auto">
+            <div class="flex flex-col bg-white rounded-2xl py-4 px-5">
+                <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                    <h4 class="text-sm text-gray-900 font-medium">Edit Category</h4>
+                    <button class="block cursor-pointer close-modal-button" data-pd-overlay="#medium-modal"
+                        data-modal-target="medium-modal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.75732 7.75739L16.2426 16.2427M16.2426 7.75739L7.75732 16.2427" stroke="black"
+                                stroke-width="1.6" stroke-linecap="round"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form id="categoryForm" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" name="id" id="edit_id">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="edit_name" class="block text-lg font-medium text-gray-700">Name</label>
+                            <input type="text" name="name" id="edit_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-4 edit_name" onkeyup="errorRemove(this)">
+                            <span class="text-red-600 text-sm edit_name_error"></span>
+                        </div>
+
+                        <div>
+                            <label for="edit_slug" class="block text-lg font-medium text-gray-700">Slug</label>
+                            <input type="text" name="slug" id="edit_slug" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-4" onkeyup="errorRemove(this)">
+                            <span class="text-red-600 text-sm slug_error"></span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="edit_description" class="block text-lg font-medium text-gray-700">Description</label>
+                            <textarea name="description" id="edit_description" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-4" onkeyup="errorRemove(this)"></textarea>
+                            <span class="text-red-600 text-sm description_error"></span>
+                        </div>
+
+                        <div>
+                            <label for="edit_status" class="block text-lg font-medium text-gray-700">Status</label>
+                            <select name="status" id="edit_status" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-4">
+                                <option value="">Select Status</option>
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+                            <span class="text-red-600 text-sm status_error"></span>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="edit_image" class="block text-lg font-medium text-gray-700">Image</label>
+                            <input type="file" name="image" id="edit_image" onchange="loadImage(event, 'editImagePreview')" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md py-2 px-4">
+                            <span class="text-red-600 text-sm image_error"></span>
+                        </div>
+
+                        <div class="text-center">
+                            <img id="editImagePreview" class="mt-2" src="https://placehold.co/100x100" alt="Preview" style="width: 120px; height: 120px;">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-xl w-full text-white px-4 py-2 rounded-lg update_category">Update Category</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@endsection
+
+@push('scripts')
+  <script>
+
+    // Image Preview
+    function loadImage(event, previewId) {
+        var output = document.getElementById(previewId);
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+        } else{
+            output.src = 'https://placehold.co/100x100';
+        }
+    }
+
+    // Error Remove
+    function errorRemove(e) {
+        tag = e.tagName.toLowerCase();
+        if (e.value != "") {
+            if (tag == 'select') {
+                $(e).closest('.mb-3').find('.text-red-500').hide();
+            } else {
+                $(e).siblings('.text-red-500').hide();
+                $(e).css('border-color', '#e2e8f0');
+            }
+        }
+    }
+
+    // Remove Border  & Backend Message
+    $('#removeBorderError').on('click', function () {
+        $(this).find('input, select, textarea').val('').css('border-color', '');
+        $(this).find('.text-red-500').hide();
+    });
+
+    // Category Create
+    $(document).ready(function () {
+
+        // Show Error
+        function showError(name, message) {
+            $(name).css('border-color', 'red');
+            $(name).focus();
+            $(`${name}_error`).show().text(message);
+        }
+
+        // Show Category
+        function showCategory() {
+            $.ajax({
+                url: "{{ route('category.show') }}",
+                method: 'GET',
+                success: function (res) {
+                    const categories = res.data;
+                    $('.showData').empty();
+
+                    if (categories.length > 0) {
+                        $.each(categories, function (index, category) {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${index+1}</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><img src="${category.image ? '/uploads/category/' + category.image : 'https://placehold.co/100x100'}" alt="Image" style="width: 60px; height: 40px;"></td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${category.name}</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${category.slug}</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${category.description}</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <span class="${category.status === 'draft' ? 'bg-rose-300' : 'bg-green-300'} text-white py-2 px-2 rounded-md">
+                                        ${category.status}
+                                    </span>
+                                </td>
+                                <td class="text-center px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <div class="flex items-center justify-center">
+                                        <div class="flex items-center">
+                                            <a href="#" data-id="${category.id}" class="category_edit bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-white px-2 py-1 mr-2 rounded-lg">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="#" data-id="${category.id}" class="bg-rose-600 hover:bg-red-500 transition-all duration-200 text-white px-2 py-1 rounded-lg">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            `;
+                            $('.showData').append(tr);
+                        });
+                    } else {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td colspan="7" class="text-center">No Data Found</td>
+                        `;
+                        $('.showData').append(tr);
+                    }
+                }
+            });
+        }
+        showCategory();
+
+        // Category Create
+        $('#categoryForm').on('submit', function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('category.store') }}",
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    if (res.status == 200) {
+                        $('#medium-modal').addClass('hidden');
+                        $('#createImagePreview').attr('src', 'https://placehold.co/100x100');
+                        $('#categoryForm')[0].reset();
+                        showCategory();
+                        toastr.success(res.message);
+                    } else if (res.status == 400) {
+                        if (res.errors.name) {
+                            showError('.name', res.errors.name);
+                        }
+                        if (res.errors.slug) {
+                            showError('.slug', res.errors.slug);
+                        }
+                        if (res.errors.description) {
+                            showError('.description', res.errors.description);
+                        }
+                        if (res.errors.status) {
+                            showError('.status', res.errors.status);
+                        }
+                        if (res.errors.image) {
+                            showError('.image', res.errors.image);
+                        }
+                    }
+                }
+            });
+        });
+
+       // Category Edit
+        $(document).on('click', '.category_edit', function (e) {
+            e.preventDefault();
+            let id = $(this).data('id'); // Get the category ID from the data attribute
+
+            console.log(id); // Debugging: Check if the ID is correct
+
+            $.ajax({
+                url: `/category/edit/${id}`, // Ensure this URL is correct
+                method: 'GET',
+                success: function (res) {
+                    if (res.status == 200) {
+                        // Ensure the modal ID matches the one in your HTML
+                        $('#medium-modal').removeClass('hidden').addClass('block'); // Show the modal
+                        $('#edit_id').val(res.data.id); // Set the hidden ID field
+                        $('#edit_name').val(res.data.name); // Set the name field
+                        $('#edit_slug').val(res.data.slug); // Set the slug field
+                        $('#edit_description').val(res.data.description); // Set the description field
+                        $('#edit_status').val(res.data.status); // Set the status field
+
+                        // Image Preview Update
+                        let imageSrc = res.data.image ? '/uploads/category/' + res.data.image : 'https://placehold.co/100x100';
+                        $('#editImagePreview').attr('src', imageSrc); // Set the image preview
+                    } else {
+                        console.error('Error: ', res.message); // Debugging: Log any errors
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error: ', error); // Debugging: Log AJAX errors
+                }
+            });
+        });
+
+    });
+
+
+
+  </script>
+@endpush
