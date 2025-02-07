@@ -18,7 +18,7 @@
       <div class="flex flex-wrap justify-between">
         <div class="mb-10 max-w-[571px] w-full">
           <a class="mb-8.5 inline-block" href="index.html">
-            <img src="images/logo.svg" alt="Logo" />
+            <img src="{{ asset('assets/pictures/logo.svg') }}" alt="Logo" />
           </a>
 
           <p class="mb-12 xl:w-4/5">

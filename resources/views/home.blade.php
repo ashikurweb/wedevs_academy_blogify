@@ -14,10 +14,10 @@
             class="absolute -z-1 -top-[112%] sm:-top-[93%] xl:-top-[62%] left-1/2 -translate-x-1/2 -u-z-10 hero-circle-gradient w-full h-[1046px] rounded-full max-w-[1046px]">
           </div>
           <div class="absolute top-0 left-1/2 -translate-x-1/2 -u-z-10">
-            <img src="images/blur-02.svg" alt="blur" class="max-w-none">
+            <img src="{{ asset('assets/pictures/blur-02.svg') }}" alt="blur" class="max-w-none">
           </div>
           <div class="absolute top-0 left-1/2 -translate-x-1/2 -u-z-10">
-            <img src="images/blur-01.svg" alt="blur" class="max-w-none">
+            <img src="{{ asset('assets/pictures/blur-01.svg') }}" alt="blur" class="max-w-none">
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
 
           <a href="http://github.com/ashikurweb" target="_blank"
             class="hero-button-gradient inline-flex rounded-lg py-3 px-7 text-white font-medium ease-in duration-300 hover:opacity-80">
-            Start Your Free Trial
+            Connect My Github Account
           </a>
         </div>
       </div>
@@ -52,6 +52,130 @@
       </div>
     </section>
     <!-- ===== Hero Section End ===== -->
+
+      <!-- ====== Clients Section Start -->
+      <section class="py-19">
+        <div class="max-w-[1104px] mx-auto px-4 sm:px-8 xl:px-0">
+          <div class="relative overflow-hidden z-10">
+            <span
+              class="max-w-[128px] w-full h-[37px] block inset-0 pointer-events-none absolute z-10 left-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-dark/0 to-dark/100"></span>
+            <span
+              class="max-w-[128px] w-full h-[37px] block inset-0 pointer-events-none absolute z-10 left-auto top-1/2 -translate-y-1/2 bg-gradient-to-r from-dark/0 to-dark/100"></span>
+            <div class="swiper clients-carousel">
+              <div class="swiper-wrapper items-center select-none !ease-linear">
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-01.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-02.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-03.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-04.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-05.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-06.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img class="mt-3" src="{{ asset('assets/pictures/client-07.svg') }}" alt="client" />
+                  </a>
+                </div>
+
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-01.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-02.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-03.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-04.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-05.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-06.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img class="mt-3" src="{{ asset('assets/pictures/client-07.svg') }}" alt="client" />
+                  </a>
+                </div>
+
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-01.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-02.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-03.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-04.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-05.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img src="{{ asset('assets/pictures/client-06.svg') }}" alt="client" />
+                  </a>
+                </div>
+                <div class="swiper-slide !w-auto">
+                  <a href="/#">
+                    <img class="mt-3" src="{{ asset('assets/pictures/client-07.svg') }}" alt="client" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ====== Clients Section End -->
 
     <!-- ====== Blog Section Start -->
     <section class="py-20 lg:py-25">
@@ -247,7 +371,7 @@
     </section>
     <!-- ====== Blog Section End -->
 
-    <section class="pt-12.5">
+    {{-- <section class="pt-12.5">
       <div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
         <div class="grid sm:grid-cols-12 gap-7.5" data-highlighter>
           <!-- features item -->
@@ -375,13 +499,13 @@
                   <span class="absolute right-[14%] top-[17%]"><img src="{{ asset('assets/pictures/shape-05.svg') }}"
                       alt="shape" /></span>
                   <span class="absolute left-0 bottom-0">
-                    <img src="{{ asset('assets/pictures/blur-10.svg') }} alt="blur" class="max-w-none">
+                    <img src="{{ asset('assets/pictures/blur-10.svg') }}" alt="blur" class="max-w-none">
                   </span>
                   <span class="absolute top-0 right-0">
-                    <img src="{{ asset('assets/pictures/blur-11.svg') }} alt="blur" class="max-w-none">
+                    <img src="{{ asset('assets/pictures/blur-11.svg') }}" alt="blur" class="max-w-none">
                   </span>
                   <span class="absolute top-0 right-0">
-                    <img src="{{ asset('assets/pictures/blur-12.svg') }} alt="blur" class="max-w-none">
+                    <img src="{{ asset('assets/pictures/blur-12.svg') }}" alt="blur" class="max-w-none">
                   </span>
                 </div>
               </div>
@@ -389,19 +513,19 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- ===== features list Section End ===== -->
 
 
     <!-- ====== User Section Start -->
-    <section x-data="{ 'showContent': false, 'scrollContent': false, }"
+    {{-- <section x-data="{ 'showContent': false, 'scrollContent': false, }"
       class="relative z-20 overflow-hidden pt-22.5 lg:pt-27.5 xl:pt-32.5 2xl:pt-45 pb-20">
       <div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
         <!-- section title -->
         <div class="wow fadeInUp mb-15 text-center">
           <span
             class="hero-subtitle-gradient relative mb-4 font-medium text-sm inline-flex items-center gap-2 py-2 px-4.5 rounded-full">
-            <img src="images/icon-title.svg" alt="icon">
+            <img src="{{ asset('assets/pictures/icon-title.svg') }}" alt="icon">
 
             <span class="hero-subtitle-text"> Wall of love </span>
           </span>
@@ -424,7 +548,7 @@
             <div class="user-border-gradient relative overflow-hidden px-8 py-9 rounded-[19px]">
               <div class="flex items-center gap-4.5">
                 <div class="max-w-[48px] w-full h-12 rounded-full">
-                  <img src="images/user-01.png" alt="user" />
+                  <img src="{{ asset('assets/pictures/user-01.png') }}" alt="user" />
                 </div>
                 <div>
                   <h5 class="text-white text-sm font-medium">
@@ -1267,132 +1391,8 @@
           </button>
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- ====== User Section End -->
-
-    <!-- ====== Clients Section Start -->
-    <section class="py-19">
-      <div class="max-w-[1104px] mx-auto px-4 sm:px-8 xl:px-0">
-        <div class="relative overflow-hidden z-10">
-          <span
-            class="max-w-[128px] w-full h-[37px] block inset-0 pointer-events-none absolute z-10 left-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-dark/0 to-dark/100"></span>
-          <span
-            class="max-w-[128px] w-full h-[37px] block inset-0 pointer-events-none absolute z-10 left-auto top-1/2 -translate-y-1/2 bg-gradient-to-r from-dark/0 to-dark/100"></span>
-          <div class="swiper clients-carousel">
-            <div class="swiper-wrapper items-center select-none !ease-linear">
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-01.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-02.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-03.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-04.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-05.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-06.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img class="mt-3" src="images/client-07.svg" alt="client" />
-                </a>
-              </div>
-
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-01.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-02.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-03.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-04.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-05.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-06.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img class="mt-3" src="images/client-07.svg" alt="client" />
-                </a>
-              </div>
-
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-01.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-02.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-03.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-04.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-05.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img src="images/client-06.svg" alt="client" />
-                </a>
-              </div>
-              <div class="swiper-slide !w-auto">
-                <a href="/#">
-                  <img class="mt-3" src="images/client-07.svg" alt="client" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- ====== Clients Section End -->
 
     <!-- ====== Support Section Start -->
     <section id="support" class="scroll-mt-17">
@@ -1430,13 +1430,13 @@
           <!-- bg shapes -->
           <div class="absolute -z-10 pointer-events-none inset-0 overflow-hidden">
             <span class="absolute left-1/2 top-0 -translate-x-1/2 -z-1">
-              <img src="images/blur-19.svg" alt="blur" class="max-w-none">
+              <img src="{{ asset('assets/pictures/blur-19.svg') }}" alt="blur" class="max-w-none">
             </span>
             <span class="absolute left-1/2 top-0 -translate-x-1/2 -z-1">
-              <img src="images/blur-20.svg" alt="blur" class="max-w-none">
+              <img src="{{ asset('assets/pictures/blur-20.svg') }}" alt="blur" class="max-w-none">
             </span>
             <span class="absolute left-1/2 top-0 -translate-x-1/2 -z-1">
-              <img src="images/blur-21.svg" alt="blur" class="max-w-none">
+              <img src="{{ asset('assets/pictures/blur-21.svg') }}" alt="blur" class="max-w-none">
             </span>
           </div>
 
@@ -1444,7 +1444,7 @@
           <div class="wow fadeInUp mb-16 text-center relative z-999">
             <span
               class="hero-subtitle-gradient relative mb-4 font-medium text-sm inline-flex items-center gap-2 py-2 px-4.5 rounded-full">
-              <img src="images/icon-title.svg" alt="icon">
+              <img src="{{ asset('assets/pictures/icon-title.svg') }}" alt="icon">
 
               <span class="hero-subtitle-text"> Need Any Help? </span>
             </span>
