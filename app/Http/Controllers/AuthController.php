@@ -18,8 +18,7 @@ class AuthController extends Controller
 
         $user = User::create($fields);
         Auth::login($user);
-
-        return redirect()->route('home')->with('success', 'Registration Successfully!');
+        return redirect()->route('home');
     }
 
     public function login()
@@ -30,7 +29,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials, request()->has('remember'))) {
-            return redirect()->route('home')->with('success', 'Login Successfully!');
+            return redirect()->route('home');
         } else {
             return back()->withErrors([
                 'failed' => 'The provided credentials do not match our records.',
@@ -45,6 +44,6 @@ class AuthController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
-        return redirect()->route('home')->with('success', 'Logout Successfully!');
+        return redirect()->route('home');
     }
 }

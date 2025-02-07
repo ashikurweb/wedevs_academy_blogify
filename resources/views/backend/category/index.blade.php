@@ -43,27 +43,6 @@
         align-items: center;
     }
 
-    .swal2-actions {
-        gap: 1rem;
-    }
-
-    .gradient-btn {
-        background: linear-gradient(135deg, #6a00f4, #3a00f4);
-        border: none;
-        outline: none;
-        color: #fff;
-        padding: 12px 16px;
-        font-size: 1rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .gradient-btn:hover {
-        background: linear-gradient(135deg, #3a00f4, #6a00f4);
-    }
 </style>
 @endpush
 
@@ -341,7 +320,14 @@
                         $('#createImagePreview').attr('src', 'https://placehold.co/100x100');
                         $('#categoryForm')[0].reset();
                         showCategory();
-                        toastr.success(res.message);
+                        Toastify({
+                            text: res.message,
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        }).showToast();
                     } else if (res.status == 400) {
                         if (res.errors.name) {
                             showError('.name', res.errors.name);
@@ -358,6 +344,15 @@
                         if (res.errors.image) {
                             showError('.image', res.errors.image);
                         }
+                    } else {
+                        Toastify({
+                            text: "Please check the form for errors!",
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                        }).showToast();
                     }
                 }
             });
@@ -379,7 +374,6 @@
                         $('#edit_description').val(res.data.description);
                         $('#edit_status').val(res.data.status);
                         $('.update_category').attr('data-id', res.data.id);
-                        // Image Preview Update
                         let imageSrc = res.data.image ? '/uploads/category/' + res.data.image : 'https://placehold.co/100x100';
                         $('#editImagePreview').attr('src', imageSrc);
                     }
@@ -410,9 +404,17 @@
                     if (res.status == 200) {
                         $('#editModal').addClass('hidden');
                         $('#editCategoryForm')[0].reset();
-                        showCategory();
                         $('#editImagePreview').attr('src', 'https://placehold.co/100x100');
-                        toastr.success(res.message);
+                        showCategory();
+
+                        Toastify({
+                            text: res.message,
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        }).showToast();
                     } else if (res.status == 400) {
                         if (res.errors.edit_name) {
                             showError('.edit_name', res.errors.edit_name);
@@ -430,73 +432,75 @@
                             showError('.edit_image', res.errors.image);
                         }
                     } else {
-                        toastr.error(res.message);
+                        Toastify({
+                            text: "Please check the form for errors!",
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                        }).showToast();
                     }
                 }
             });
         });
 
         // Category Delete
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn bg-indigo-600",
-                cancelButton: "btn bg-red-600"
-            },
-            buttonsStyling: true
-        });
-
-        $(document).on('click', '.category_delete', function(e) {
+        $(document).on('click', '.category_delete', function (e) {
             e.preventDefault();
 
             const id = $(this).data('id');
 
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true,
-                buttonsStyling: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
+            const toast = Toastify({
+                text: "Are you sure you want to delete this category?",
+                duration: -1,
+                close: true,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                className: "custom-toast",
+                stopOnFocus: true,
+                onClick: function () {
                     $.ajax({
                         url: `/category/destroy/${id}`,
                         method: "GET",
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        success: function(res) {
+                        success: function (res) {
+                            toast.hideToast();
                             if (res.status === 200) {
-                                swalWithBootstrapButtons.fire({
-                                    title: 'Deleted!',
-                                    text: 'Category has been deleted.',
-                                    icon: 'success'
-                                });
+                                Toastify({
+                                    text: "Category has been deleted successfully!",
+                                    duration: 3000,
+                                    close: true,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                                }).showToast();
                                 showCategory();
                             } else {
-                                swalWithBootstrapButtons.fire({
-                                    position: "top-end",
-                                    icon: "warning",
-                                    title: 'Delete Unsuccessful!',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
+                                Toastify({
+                                    text: "Delete Unsuccessful!",
+                                    duration: 3000,
+                                    close: true,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                                }).showToast();
                             }
                         }
                     });
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire({
-                        title: 'Cancelled',
-                        text: 'Your category is safe :)',
-                        icon: 'error'
-                    });
+                }
+            }).showToast();
+
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('.custom-toast').length) {
+                    toast.hideToast();
                 }
             });
         });
+        
     });
 
     function clearFormErrors() {

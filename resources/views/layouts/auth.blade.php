@@ -58,10 +58,9 @@
     </style>
 </head>
 <body>
-
-    <!-- Unified Gradient Blur Effect -->
+    
     <div class="gradient-bg"></div>
-    <!-- Glassmorphism Form -->
+
     <main>
         @yield('content')
     </main>
