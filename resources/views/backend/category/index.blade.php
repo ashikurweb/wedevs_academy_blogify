@@ -473,7 +473,7 @@
                             if (res.status === 200) {
                                 swalWithBootstrapButtons.fire({
                                     title: 'Deleted!',
-                                    text: 'Product has been deleted.',
+                                    text: 'Category has been deleted.',
                                     icon: 'success'
                                 });
                                 showCategory();
@@ -491,7 +491,7 @@
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire({
                         title: 'Cancelled',
-                        text: 'Your product is safe :)',
+                        text: 'Your category is safe :)',
                         icon: 'error'
                     });
                 }

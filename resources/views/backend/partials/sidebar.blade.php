@@ -55,25 +55,6 @@
                         <span class="menu-text">Category</span>
                         <span class="menu-arrow"></span>
                     </a>
-
-                    <div class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300">
-                        <ul class="mt-1 space-y-1">
-                            <li class="menu-item">
-                                <a class='flex items-center gap-x-3.5 rounded-md px-3 py-1.5 text-sm font-medium text-default-400 transition-all hover:bg-default-100/5'
-                                    href=''>
-                                    <i class="menu-dot"></i>
-                                    <span class="menu-text">Add Category</span>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a class='flex items-center gap-x-3.5 rounded-md px-3 py-1.5 text-sm font-medium text-default-400 transition-all hover:bg-default-100/5'
-                                    href='/drezoc-tailwind/forms-check-radio'>
-                                    <i class="menu-dot"></i>
-                                    <span class="menu-text">All Category</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
 
                 <li class="menu-item">
