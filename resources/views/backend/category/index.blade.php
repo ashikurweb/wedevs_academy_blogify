@@ -326,7 +326,7 @@
                             close: true,
                             gravity: "top",
                             position: "right",
-                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                            backgroundColor: "linear-gradient(to right, #FCEE21, #009245)",
                         }).showToast();
                     } else if (res.status == 400) {
                         if (res.errors.name) {
@@ -413,7 +413,7 @@
                             close: true,
                             gravity: "top",
                             position: "right",
-                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                            backgroundColor: "linear-gradient(to right, #FFD99B, #FF9950)",
                         }).showToast();
                     } else if (res.status == 400) {
                         if (res.errors.edit_name) {
@@ -457,7 +457,7 @@
                 close: true,
                 gravity: "top",
                 position: "center",
-                backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                backgroundColor: "linear-gradient(to right, #FF0844, #FFB199)",
                 className: "custom-toast",
                 stopOnFocus: true,
                 onClick: function () {
@@ -476,7 +476,7 @@
                                     close: true,
                                     gravity: "top",
                                     position: "right",
-                                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                                    backgroundColor: "linear-gradient(to right, #FF512F, #DD2476)",
                                 }).showToast();
                                 showCategory();
                             } else {
@@ -500,7 +500,7 @@
                 }
             });
         });
-        
+
     });
 
     function clearFormErrors() {
