@@ -63,10 +63,10 @@
 
         <!-- Dropdown -->
         <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-2xl opacity-0 scale-95 transition-all duration-300 ease-in-out hidden">
-            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-gray-100 hover:bg-gray-700"> <i class="fa fa-home"></i> Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded-md transition-all duration-200 text-gray-100 hover:bg-gray-700"> <i class="fa fa-home"></i> Dashboard</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="flex w-full px-4 py-2 text-rose-400 hover:bg-rose-400 hover:text-white"><i class="fa fa-sign-out mt-1 mr-1"></i> Logout</button>
+                <button type="submit" class="flex w-full px-4 py-2 rounded-md transition-all duration-200 text-red-600 hover:bg-red-600 hover:text-white"><i class="fa fa-sign-out mt-1 mr-1"></i> Logout</button>
             </form>
         </div>
     </div>
