@@ -1,4 +1,4 @@
-@extends('layouts.backend')
+{{-- @extends('layouts.backend')
 @section('title', 'Category Created')
 
 @section('content')
@@ -149,4 +149,4 @@
 
 </script>
 
-@endsection
+@endsection --}}

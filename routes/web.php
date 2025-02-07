@@ -14,10 +14,11 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/category', 'index')->name('category.index');
-        Route::get('/category/create', 'create')->name('category.create');
         Route::post('/category/store', 'store')->name('category.store');
         Route::get('/category/show', 'show')->name('category.show');
         Route::get('/category/edit/{id}', 'edit')->name('category.edit');
+        Route::post('/category/update/{id}', 'update')->name('category.update');
+        Route::get('/category/destroy/{id}', 'destroy')->name('category.destroy');
     });
 
     Route::controller(DashboardController::class)->group(function () {
