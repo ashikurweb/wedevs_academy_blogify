@@ -63,6 +63,7 @@
 
         <!-- Dropdown -->
         <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-2xl opacity-0 scale-95 transition-all duration-300 ease-in-out hidden">
+            <p class="block px-4 py-2 rounded-md border-b border-slate-900 bg-gray-800 transition-all duration-200 text-gray-100 hover:bg-gray-700">{{ Auth::user()->full_name }}</p>
             <a href="{{ route('dashboard') }}" class="block px-4 py-2 rounded-md transition-all duration-200 text-gray-100 hover:bg-gray-700"> <i class="fa fa-home"></i> Dashboard</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf

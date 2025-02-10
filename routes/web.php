@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +21,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/category/destroy/{id}', 'destroy')->name('category.destroy');
     });
 
-    Route::controller(DashboardController::class)->group(function () {
+    Route::controller(BlogController::class)->group(function () {
         Route::get('/blog', 'index')->name('blog.index');
+        Route::get('/blog/store', 'store')->name('blog.store');
+        Route::get('/blog/show', 'show')->name('blog.show');
+        Route::get('/blog/edit/{id}', 'edit')->name('blog.edit');
+        Route::post('/blog/update/{id}', 'update')->name('blog.update');
+        Route::get('/blog/destroy/{id}', 'destroy')->name('blog.destroy');
     });
 });
 

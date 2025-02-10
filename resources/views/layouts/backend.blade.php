@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/preline@1.0.0/dist/preline.js"></script>
     <link rel="stylesheet" href="{{ asset('backend/styles/icons.min.css') }}" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.9/dist/sweetalert2.min.css" rel="stylesheet" />
-    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" /> --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="{{ asset('backend/styles/app.min.css') }}" type="text/css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,7 +58,6 @@
     <script src="{{ asset('backend/libs/raphael/raphael.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.9/dist/sweetalert2.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     @stack('scripts')
