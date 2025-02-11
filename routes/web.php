@@ -23,11 +23,11 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(BlogController::class)->group(function () {
         Route::get('/blog', 'index')->name('blog.index');
-        Route::get('/blog/store', 'store')->name('blog.store');
-        Route::get('/blog/show', 'show')->name('blog.show');
-        Route::get('/blog/edit/{id}', 'edit')->name('blog.edit');
-        Route::post('/blog/update/{id}', 'update')->name('blog.update');
-        Route::get('/blog/destroy/{id}', 'destroy')->name('blog.destroy');
+        Route::post('/blog/store', 'store')->name('blog.store');
+        // Route::get('/blog/show', 'show')->name('blog.show');
+        // Route::get('/blog/edit/{id}', 'edit')->name('blog.edit');
+        // Route::post('/blog/update/{id}', 'update')->name('blog.update');
+        // Route::get('/blog/destroy/{id}', 'destroy')->name('blog.destroy');
     });
 });
 

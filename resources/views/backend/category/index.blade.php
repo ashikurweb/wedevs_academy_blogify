@@ -88,9 +88,8 @@
             Close
         </button>
         <h3 class="text-3xl font-semibold border-b py-2 mb-6">Category Create</h3>
-        <form id="categoryForm" method="POST">
+        <form id="categoryForm" method="POST" enctype="multipart/form-data">
             @csrf
-
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                 <div>
                     <label for="name" class="block text-lg font-medium text-gray-700">Name</label>
@@ -265,7 +264,7 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${category.slug}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${category.description}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span class="${category.status === 'draft' ? 'bg-rose-300' : 'bg-green-300'} text-white py-2 px-2 rounded-md">
+                                    <span class="${category.status === 'draft' ? 'text-rose-500 bg-rose-100' : 'text-green-500 bg-green-100'} text-white py-2 px-2 rounded-md">
                                         ${category.status}
                                     </span>
                                 </td>

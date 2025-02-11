@@ -59,9 +59,10 @@
                     <tr>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">SN</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Image</th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Slug</th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Title</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Published_at</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tags</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Category</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Action</th>
                     </tr>
@@ -88,7 +89,7 @@
             Close <i class="fa-solid fa-xmark"></i>
         </button>
         <h3 class="text-3xl font-semibold border-b py-2 mb-6">Blog Create</h3>
-        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form id="blogForm" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Title -->
@@ -110,9 +111,7 @@
                 <!-- Short Description -->
                 <div>
                     <label class="block text-gray-700 font-semibold">Short Description</label>
-                    <input type="text" name="short_description" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 short_description" onkeyup="errorRemove(this)" placeholder="Write your short description">
-
-                    <span class="text-red-500 short_description_error"></span>
+                    <input type="text" name="short_description" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 short_description" onkeyup="errorRemove(this)" placeholder="Optional">
                 </div>
 
             </div>
@@ -129,7 +128,7 @@
                 <!-- Category -->
                 <div>
                     <label class="block text-gray-700 font-semibold">Category</label>
-                    <select name="category" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 category_id" onkeyup="errorRemove(this)">
+                    <select name="category_id" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 category_id" onkeyup="errorRemove(this)">
                         <option class="" value="">Select Category</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -140,20 +139,21 @@
 
                 <!-- Status -->
                 <div>
-                    <label class="block text-gray-700 font-semibold">Status</label>
-                    <select name="status" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 status status" onkeyup="errorRemove(this)">
-                        <option value="Draft">Draft</option>
-                        <option value="Published">Published</option>
+                    <label for="status" class="block text-lg font-medium text-gray-700">Status</label>
+                    <select name="status" id="status" class="mt-1 bg-slate-100 outline-none border-slate-200 block w-full sm:text-sm rounded-md py-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 px-4 status">
+                        <option value="">Select Status</option>
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
                     </select>
-
-                    <span class="text-red-500 status_error"></span>
+                    <span class="text-red-600 text-sm status_error"></span>
                 </div>
             </div>
 
             <!-- Content -->
             <div>
                 <label class="block text-gray-700 font-semibold">Content</label>
-                <textarea name="content" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200" id="editor"></textarea>
+                <textarea name="content" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 content" id="editor" onkeyup="errorRemove(this)"></textarea>
+                <span class="text-red-500 content_error"></span>
             </div>
 
             <!-- Tags -->
@@ -163,9 +163,12 @@
                   <div id="tags-container" class="flex flex-wrap items-center gap-2">
                     <!-- Dynamically Added Tags -->
                   </div>
-                  <input id="tag-input" type="text" name="tags" placeholder="Add a maximum five tags...." class="flex-1 border-none outline-none bg-transparent py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200"/>
+                  <input id="tag-input" type="text" name="tags" placeholder="Add a maximum five tags...." class="flex-1 border-none outline-none bg-transparent py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 tags"/>
                 </div>
+                <span class="text-red-500 tags_error"></span>
                 <p id="error-message" class="mt-2 text-sm text-red-500 hidden">You can only add up to 5 tags.</p>
+                <p>Please write your tags press enter.</p>
+                <input type="hidden" name="tags" id="tags-hidden-input" value="">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -177,8 +180,7 @@
                     <img id="createImagePreview" class="mt-2 image" src="https://placehold.co/100x100" alt="Preview" style="width: 100px; height: 100px;">
                 </div>
             </div>
-
-            <button type="button" class="w-full bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">Create Blog</button>
+            <button type="submit" class="w-full bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">Create Blog</button>
         </form>
     </div>
 </div>
@@ -217,17 +219,99 @@
 
     // Error Remove
 
-    // function errorRemove(e) {
-    //     tag = e.tagName.toLowerCase();
-    //     if (e.value != "") {
-    //         if (tag == 'select') {
-    //             $(e).closest('.mb-3').find('.text-red-500').hide();
-    //         } else {
-    //             $(e).siblings('.text-red-500').hide();
-    //             $(e).css('border-color', '#e2e8f0');
-    //         }
-    //     }
-    // }
+    function errorRemove(e) {
+        tag = e.tagName.toLowerCase();
+        if (e.value != "") {
+            if (tag == 'select') {
+                $(e).closest('.mb-3').find('.text-red-500').hide();
+            } else {
+                $(e).siblings('.text-red-500').hide();
+                $(e).css('border-color', '#e2e8f0');
+            }
+        }
+    }
+
+    // started ajax and blog
+    $(document).ready(function () {
+
+        // showError
+        function showError (name, message) {
+            $(name).css('border-color', 'red');
+            $(name).focus();
+            $(`${name}_error`).show().text(message);
+        }
+
+        $('#blogForm').on('submit', function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('blog.store') }}",
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+
+                success: function (res) {
+                    if (res.status == 200) {
+                        $('#modal').addClass('hidden');
+                        $('#createImagePreview').attr('src', 'https://placehold.co/100x100');
+                        $('#blogForm')[0].reset();
+                        Toastify({
+                            text: res.message,
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #FCEE21, #009245)",
+                        }).showToast();
+                    } else if (res.status == 400) {
+                        if (res.errors.title) {
+                            showError('.title', res.errors.title);
+                        }
+                        if (res.errors.author) {
+                            showError('.author', res.errors.author);
+                        }
+                        if (res.errors.short_description) {
+                            showError('.short_description', res.errors.short_description);
+                        }
+                        if (res.errors.published_at) {
+                            showError('.published_at', res.errors.published_at);
+                        }
+                        if (res.errors.status) {
+                            showError('.status', res.errors.status);
+                        }
+                        if (res.errors.content) {
+                            showError('.content', res.errors.content);
+                        }
+                        if (res.errors.tags) {
+                            showError('.tags', res.errors.tags);
+                        }
+                        if (res.errors.image) {
+                            showError('.image', res.errors.image);
+                        }
+                    } else {
+                        Toastify({
+                            text: "Please check the form for errors!",
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                        }).showToast();
+                    }
+                }
+            });
+        });
+
+    });
 
     const modal = document.getElementById('modal');
     const openModalButton = document.getElementById('openModal');
@@ -257,56 +341,73 @@
         });
     });
 
-    // Tags
     const input = document.getElementById('tag-input');
     const tagsContainer = document.getElementById('tags-container');
     const errorMessage = document.getElementById('error-message');
+    const tagsHiddenInput = document.getElementById('tags-hidden-input');
     let tags = [];
 
     input.addEventListener('keydown', (event) => {
         if (event.key === 'Enter' && input.value.trim() !== '') {
-        event.preventDefault();
-        const newTag = input.value.trim();
-        if (tags.length >= 5) {
-            errorMessage.classList.remove('hidden');
-            return;
-        } else {
-            errorMessage.classList.add('hidden');
-        }
+            event.preventDefault();
+            const newTag = input.value.trim();
 
-        if (!tags.includes(newTag)) {
-            tags.push(newTag);
-            renderTags();
-        }
-        input.value = '';
+            // Validation max 5 tags
+            if (tags.length >= 5) {
+                errorMessage.classList.remove('hidden');
+                return;
+            } else {
+                errorMessage.classList.add('hidden');
+            }
+
+            // check duplicate tags
+            if (!tags.includes(newTag)) {
+                tags.push(newTag);
+                renderTags();
+                updateHiddenInput();
+            }
+            input.value = '';
         }
     });
 
     const renderTags = () => {
         tagsContainer.innerHTML = '';
         tags.forEach((tag, index) => {
-        const tagElement = document.createElement('div');
-        tagElement.className =
-            'flex items-center bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm';
-        tagElement.innerHTML = `
-            <span>${tag}</span>
-            <button
-            type="button"
-            class="ml-2 text-indigo-500 hover:text-indigo-700 font-bold"
-            onclick="removeTag(${index})"
-            >
-            &times;
-            </button>
-        `;
-        tagsContainer.appendChild(tagElement);
+            const tagElement = document.createElement('div');
+            tagElement.className =
+                'flex items-center bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm';
+            tagElement.innerHTML = `
+                <span>${tag}</span>
+                <button
+                    type="button"
+                    class="ml-2 text-indigo-500 hover:text-indigo-700 font-bold"
+                    onclick="removeTag(${index})"
+                >
+                    &times;
+                </button>
+            `;
+            tagsContainer.appendChild(tagElement);
         });
     };
 
     const removeTag = (index) => {
         tags.splice(index, 1);
         renderTags();
+        updateHiddenInput();
         errorMessage.classList.add('hidden');
     };
+
+    const updateHiddenInput = () => {
+        tagsHiddenInput.value = tags.join(',');
+    };
+
+    document.querySelector('form').addEventListener('submit', (event) => {
+        if (tags.length > 5) {
+            event.preventDefault();
+            errorMessage.classList.remove('hidden');
+            errorMessage.textContent = 'You can only add up to 5 tags.';
+        }
+    });
 
      // CKEditor 5
      ClassicEditor
