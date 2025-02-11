@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/preline@1.0.0/dist/preline.js"></script>
     <link rel="stylesheet" href="{{ asset('backend/styles/icons.min.css') }}" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.9/dist/sweetalert2.min.css" rel="stylesheet" />
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="{{ asset('backend/styles/app.min.css') }}" type="text/css">
     <script src="https://cdn.tailwindcss.com"></script>

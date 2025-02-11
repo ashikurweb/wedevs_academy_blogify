@@ -148,7 +148,7 @@
             Close
         </button>
         <h3 class="text-3xl font-semibold border-b py-2 mb-6">Category Edit</h3>
-        <form id="editCategoryForm" method="POST">
+        <form id="editCategoryForm" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" id="edit_id">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
@@ -358,7 +358,7 @@
         });
 
         // Category Edit
-        $(document).on('click', '#openEditModal', function (e) {
+        $(document).on('click', '.category_edit', function (e) {
             e.preventDefault();
             let id = $(this).data('id');
             $.ajax({

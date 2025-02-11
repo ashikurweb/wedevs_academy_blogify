@@ -187,13 +187,104 @@
 </div>
 
 
-<div id="editModal" class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white rounded-lg p-8 w-full max-w-4xl relative">
+<div id="editModal" class="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 hidden overflow-y-auto">
+    <div class="bg-white rounded-lg p-8 w-full max-w-4xl relative max-h-screen overflow-y-auto">
         <button id="closeEditModal" class="absolute text-md top-2 right-2 bg-red-100 px-2 py-2 rounded-full font-semibold hover:bg-rose-200 text-rose-600">
             Close <i class="fa-solid fa-xmark"></i>
         </button>
         <h3 class="text-3xl font-semibold border-b py-2 mb-6">Blog Edit</h3>
+        <form id="editBlogForm" enctype="multipart/form-data" class="space-y-6">
+            @csrf
+            <input type="hidden" name="id" id="edit_id">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Title -->
+                <div>
+                    <label class="block text-gray-700 font-semibold">Title</label>
+                    <input type="text" name="title" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 edit_title" onkeyup="errorRemove(this)" placeholder="Write your title here...">
+                    <span class="text-red-500 edit_title_error"></span>
+                </div>
 
+                <!-- Author -->
+                <div>
+                    <label class="block text-gray-700 font-semibold">Author</label>
+                    <input type="text" name="author" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 edit_author" onkeyup="errorRemove(this)" placeholder="Author name...">
+
+                    <span class="text-red-500 edit_author_error"></span>
+                </div>
+
+                <!-- Short Description -->
+                <div>
+                    <label class="block text-gray-700 font-semibold">Short Description</label>
+                    <input type="text" name="short_description" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 short_description" onkeyup="errorRemove(this)" placeholder="Optional">
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Published At -->
+                <div>
+                    <label class="block text-gray-700 font-semibold">Published At</label>
+                    <input type="date" name="published_at" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 edit_published_at" onkeyup="errorRemove(this)">
+                    <span class="text-red-500 edit_published_at_error"></span>
+                </div>
+
+                <!-- Category -->
+                <div>
+                    <label class="block text-gray-700 font-semibold">Category</label>
+                    <select name="category_id" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 edit_category_id" onkeyup="errorRemove(this)">
+                        <option class="" value="">Select Category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    <span class="text-red-500 edit_category_id_errors"></span>
+                </div>
+
+                <!-- Status -->
+                <div>
+                    <label for="status" class="block text-lg font-medium text-gray-700">Status</label>
+                    <select name="status" id="status" class="mt-1 bg-slate-100 outline-none border-slate-200 block w-full sm:text-sm rounded-md py-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 px-4 edit_status">
+                        <option value="">Select Status</option>
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                    </select>
+                    <span class="text-red-600 text-sm edit_status_error"></span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div>
+                <label class="block text-gray-700 font-semibold">Content</label>
+                <textarea name="content" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 edit_content" id="content" onkeyup="errorRemove(this)"></textarea>
+                <span class="text-red-500 edit_content_error"></span>
+            </div>
+
+            <!-- Tags -->
+            <div>
+                <label class="block text-gray-700 font-semibold">Tags</label>
+                <div class="w-full border-slate-200 bg-slate-100 rounded-lg flex flex-column items-center gap-2">
+                  <div id="tags-container" class="flex flex-wrap items-center gap-2">
+                    <!-- Dynamically Added Tags -->
+                  </div>
+                  <input id="tag-input" type="text" name="tags" placeholder="Add a maximum five tags...." class="flex-1 border-none outline-none bg-transparent py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200 edit_tags"/>
+                </div>
+                <span class="text-red-500 edit_tags_error"></span>
+                <p id="error-message" class="mt-2 text-sm text-red-500 hidden">You can only add up to 5 tags.</p>
+                <p>Please write your tags press enter.</p>
+                <input type="hidden" name="tags" id="tags-hidden-input" value="">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label class="block text-gray-700 font-semibold">Upload Image</label>
+                    <input type="file" name="image" class="w-full outline-none mt-1 px-4 py-2 border-slate-200 bg-slate-100 rounded-lg focus:ring-1 focus:ring-indigo-400 transition-all duration-200" onchange="loadImage(event, 'createImagePreview')">
+                </div>
+                <div class="flex justify-start">
+                    <img id="createImagePreview" class="mt-2 image" src="https://placehold.co/100x100" alt="Preview" style="width: 100px; height: 100px;">
+                </div>
+            </div>
+            <button type="submit" class="w-full bg-indigo-500 text-white px-6 py-3 rounded-lg hover:bg-indigo-600 update_blog">Update Blog</button>
+        </form>
     </div>
 </div>
 
@@ -337,7 +428,7 @@
                                 <td class="text-center px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center justify-center">
                                         <div class="flex items-center">
-                                            <button data-id="${blog.id}" id="openEditModal" class="bg-lime-100 hover:bg-lime-200 transition-all duration-200 text-white px-2 py-1 mr-2 rounded-lg blog_view">
+                                            <button data-id="${blog.id}" id="" class="bg-lime-100 hover:bg-lime-200 transition-all duration-200 text-white px-2 py-1 mr-2 rounded-lg blog_view">
                                                 <i class="fa fa-eye text-lime-500"></i>
                                             </button>
                                             <button data-id="${blog.id}" id="openEditModal" class="bg-indigo-100 hover:bg-indigo-200 transition-all duration-200 text-white px-2 py-1 mr-2 rounded-lg blog_edit">
@@ -363,7 +454,47 @@
             });
         }
         showBlog();
+
+        $(document).on('click', '#openEditModal', function (e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+
+            $.ajax({
+                url: `/blog/edit/${id}`,
+                method: 'GET',
+                success: function (res) {
+                    if (res.status == 200) {
+                        $('#editModal').removeClass('hidden');
+                        $('#edit_id').val(res.data.id);
+                        $('.edit_title').val(res.data.title);
+                        $('.edit_author').val(res.data.author);
+                        $('.edit_content').val(res.data.content);
+                        $('.short_description').val(res.data.short_description);
+                        $('.edit_published_at').val(res.data.published_at);
+                        $('.edit_tags').val(res.data.tags);
+                        $('.edit_status').val(res.data.status);
+                        $('.update_blog').attr('data-id', res.data.id);
+                        let imageSrc = res.data.image ? '/uploads/blog/' + res.data.image : 'https://placehold.co/100x100';
+                        $('#createImagePreview').attr('src', imageSrc);
+                    }
+                }
+            });
+        });
     });
+
+    function clearFormErrors() {
+        $('#blogForm')[0].reset();
+        $('.text-red-600').text('').hide();
+        $('input, select, textarea').css('border-color', '#e2e8f0');
+        $('#createImagePreview').attr('src', 'https://placehold.co/100x100');
+    }
+
+    function clearEditFormErrors() {
+        $('#editBlogForm')[0].reset();
+        $('.text-red-600').text('').hide();
+        $('input, select, textarea').css('border-color', '#e2e8f0');
+        $('#editImagePreview').attr('src', 'https://placehold.co/100x100');
+    }
 
     const modal = document.getElementById('modal');
     const openModalButton = document.getElementById('openModal');
@@ -460,20 +591,5 @@
             errorMessage.textContent = 'You can only add up to 5 tags.';
         }
     });
-
-     // CKEditor 5
-     ClassicEditor
-        .create(document.querySelector('#editor'), {
-            bodyClass: 'prose prose-sm max-w-none',
-        })
-        .then(editor => {
-            console.log('Editor is ready!', editor);
-
-            const editorElement = editor.ui.getEditableElement();
-            editorElement.classList.add('prose', 'prose-sm', 'max-w-none');
-        })
-        .catch(error => {
-            console.error('Error initializing CKEditor:', error);
-        });
   </script>
 @endpush
