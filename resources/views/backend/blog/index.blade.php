@@ -60,9 +60,10 @@
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">SN</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Image</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Title</th>
-                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Published_at</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Author</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tags</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Category</th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Published_at</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
                         <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Action</th>
                     </tr>
@@ -311,6 +312,57 @@
             });
         });
 
+        function showBlog () {
+            $.ajax({
+                url: "{{ route('blog.show') }}",
+                method: 'GET',
+                success: function (res) {
+                    const blogs = res.data;
+                    $('.showData').empty();
+
+                    if (blogs.length > 0) {
+                        $.each(blogs, function (index, blog) {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td class = "px-5 py-5 border-b border-gray-200 bg-white text-sm">${index+1}</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><img src="${blog.image ? '/uploads/blog/' + blog.image : 'https://placehold.co/100x100'}" alt="Image" style="width: 60px; height: 60px;"></td>
+                                <td class = "px-5 py-5 border-b border-gray-200 bg-white text-sm">${blog.title}</td>
+                                <td class = "px-5 py-5 border-b border-gray-200 bg-white text-sm">${blog.author}</td>
+                                <td class = "px-5 py-5 border-b border-gray-200 bg-white text-sm">${blog.tags}</td>
+                                <td class = "px-5 py-5 border-b border-gray-200 bg-white text-sm">${blog.category}</td>
+                                <td class = "px-5 py-5 border-b border-gray-200 bg-white text-sm">${blog.published_at}</td>
+                                <td class = "px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <span class = "${blog.status === 'draft' ? 'text-rose-500 bg-rose-100' : 'text-green-500 bg-green-100'} text-white py-2 px-2 rounded-full">${blog.status}</span>
+                                </td>
+                                <td class="text-center px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    <div class="flex items-center justify-center">
+                                        <div class="flex items-center">
+                                            <button data-id="${blog.id}" id="openEditModal" class="bg-lime-100 hover:bg-lime-200 transition-all duration-200 text-white px-2 py-1 mr-2 rounded-lg blog_view">
+                                                <i class="fa fa-eye text-lime-500"></i>
+                                            </button>
+                                            <button data-id="${blog.id}" id="openEditModal" class="bg-indigo-100 hover:bg-indigo-200 transition-all duration-200 text-white px-2 py-1 mr-2 rounded-lg blog_edit">
+                                                <i class="fa fa-edit text-indigo-500"></i>
+                                            </button>
+                                            <button data-id="${blog.id}" class="bg-rose-100 text-rose-400 hover:bg-red-200 transition-all duration-200 text-white px-2 py-1 rounded-lg blog_delete">
+                                                <i class="fa fa-trash text-rose-500"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            `;
+                            $('.showData').append(tr);
+                        });
+                    } else {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td colspan="7" class = "text-center"No Data Found</td>
+                        `;
+                        $('.showData').append(tr);
+                    }
+                }
+            });
+        }
+        showBlog();
     });
 
     const modal = document.getElementById('modal');

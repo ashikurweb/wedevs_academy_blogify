@@ -1,6 +1,5 @@
 @extends('layouts.auth')
 @section('title', 'Sign In')
-
 @section('content')
 <div class="flex items-center justify-center min-h-screen relative">
     <div class="relative w-full max-w-md p-6 bg-white/10 backdrop-blur-2xl border border-white/15 shadow-2xl rounded-2xl">

@@ -264,18 +264,18 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${category.slug}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${category.description}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span class="${category.status === 'draft' ? 'text-rose-500 bg-rose-100' : 'text-green-500 bg-green-100'} text-white py-2 px-2 rounded-md">
+                                    <span class="${category.status === 'draft' ? 'text-rose-500 bg-rose-100' : 'text-green-500 bg-green-100'} text-white py-2 px-2 rounded-full">
                                         ${category.status}
                                     </span>
                                 </td>
                                 <td class="text-center px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center justify-center">
                                         <div class="flex items-center">
-                                            <button data-id="${category.id}" id="openEditModal" class="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-white px-2 py-1 mr-2 rounded-lg category_edit">
-                                                <i class="fa fa-edit"></i>
+                                            <button data-id="${category.id}" id="openEditModal" class="bg-sky-100 hover:bg-sky-200 transition-all duration-200 text-white px-2 py-1 mr-2 rounded-lg category_edit">
+                                                <i class="fa fa-edit text-sky-500"></i>
                                             </button>
-                                            <button data-id="${category.id}" class="bg-rose-600 hover:bg-red-500 transition-all duration-200 text-white px-2 py-1 rounded-lg category_delete">
-                                                <i class="fa fa-trash"></i>
+                                            <button data-id="${category.id}" class="bg-rose-100 hover:bg-red-200 transition-all duration-200 text-white px-2 py-1 rounded-lg category_delete">
+                                                <i class="fa fa-trash text-rose-500"></i>
                                             </button>
                                         </div>
                                     </div>
